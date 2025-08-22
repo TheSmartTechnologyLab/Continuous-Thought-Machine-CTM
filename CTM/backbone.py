@@ -1,5 +1,5 @@
 import torch.nn as nn
-from .model.squeeze import Identity, Squeeze
+from .squeeze import Identity, Squeeze
 import torch
 import torch.nn as nn
 import torch.nn.functional as F # Used for GLU

@@ -11,7 +11,7 @@ from .squeeze import Squeeze, Identity
 from .pretrain import prepare_resnet_backbone
 from .synapas import SynapseUNET
 from .linear import SuperLinear
-from ..backbone import ParityBackbone, PretrainedResNetWrapper, ShallowWide
+from .backbone import ParityBackbone, PretrainedResNetWrapper, ShallowWide
 from .embedding import LearnableFourierPositionalEncoding, MultiLearnableFourierPositionalEncoding, CustomRotationalEmbedding, CustomRotationalEmbedding1D
 from .utils import compute_normalized_entropy
 
