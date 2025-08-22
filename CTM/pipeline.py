@@ -157,7 +157,7 @@ def main():
         trainloader,
         testloader,
         device,
-        iterations=args.iterations,
+        test_every=args.test_every,
         checkpoint_dir=args.checkpoint_dir,
         hf_repo=args.hf_repo,
         hf_token=(args.hf_token or os.environ.get('HF_TOKEN')),
