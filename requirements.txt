@@ -1,0 +1,27 @@
+# Core deep learning
+torch>=2.1.0
+torchvision>=0.16.0
+
+# General scientific
+numpy>=1.24
+
+# Training / progress
+tqdm>=4.64
+
+# Plotting and visualization
+matplotlib>=3.7
+seaborn>=0.12
+imageio>=2.9
+mediapy>=0.3
+pillow>=9.0
+
+# Optional: Hugging Face uploads/downloads (optional but used by utilities)
+huggingface-hub>=0.15.0
+
+# Optional extras you might need depending on platform
+# imageio-ffmpeg (for some video backends)
+imageio-ffmpeg>=0.4.7
+
+# Recommended: pin a compatible PyTorch+CUDA build via official instructions
+# Example (Windows + CUDA 12.1) - replace with the build matching your GPU/OS:
+# pip install torch torchvision --index-url https://download.pytorch.org/whl/cu121
