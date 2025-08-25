@@ -21,6 +21,7 @@ def train_ctm(model, trainloader, testloader, iterations, device, test_every=100
     """
     optimizer = torch.optim.AdamW(params=list(model.parameters()), lr=lr, eps=1e-8)
     model.train()
+    model.to(device)
 
     start_iteration = 0
     history = {'train_losses': [], 'test_losses': [], 'train_accuracies_most_certain': [], 'test_accuracies_most_certain': []}

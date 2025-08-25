@@ -7,7 +7,6 @@ on various datasets with different backbone architectures.
 
 # Core components
 from .model import ContinuousThoughtMachine
-from .pipeline import train_loop, prepare_data, build_model
 
 # Main pipeline
 from .enhanced_pipeline import main
