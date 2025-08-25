@@ -1,6 +1,14 @@
 """Enhanced pipeline for CTM training and evaluation.
 
-This module provides a streamlined pipeline for training and evaluating CTM models,
+This module provides a streamlined pipeline for training and eva    # Build model
+    model = build_model(
+        model_config,
+        args.backbone,
+        args.pretrained,
+        device_manager.device,
+        out_dims,
+        args
+    )CTM models,
 with optimizations for both CPU and CUDA execution.
 """
 
@@ -8,12 +16,13 @@ import argparse
 import torch
 import torch.nn as nn
 import os
+import warnings
 
-from .config import DeviceManager, configure_training, configure_model
-from .data import DataManager
-from .train import train_ctm
-from .model import ContinuousThoughtMachine
-from .gif import make_gif
+from CTM.config import DeviceManager, configure_training, configure_model
+from CTM.data import DataManager
+from CTM.train import train_ctm
+from CTM.model import ContinuousThoughtMachine
+from CTM.gif import make_gif
 
 def setup_args():
     """Setup command line arguments."""
@@ -48,6 +57,13 @@ def setup_args():
     parser.add_argument('--memory_hidden_dims', type=int, default=8)
     parser.add_argument('--dropout', type=float, default=0.1)
     parser.add_argument('--deep_nlms', action='store_true')
+    parser.add_argument('--do_layernorm_nlm', action='store_true', default=True,
+                      help='Use layer normalization in NLM modules')
+    parser.add_argument('--positional_embedding_type', 
+                      default='learnable-fourier',
+                      choices=['learnable-fourier', 'multi-learnable-fourier',
+                              'custom-rotational', 'custom-rotational-1d', 'none'],
+                      help='Type of positional embedding to use')
     
     # Checkpoint and visualization
     parser.add_argument('--checkpoint_dir', default=None,
@@ -63,7 +79,7 @@ def setup_args():
     
     return parser.parse_args()
 
-def build_model(model_config, backbone_name, pretrained, device, out_dims):
+def build_model(model_config, backbone_name, pretrained, device, out_dims, args):
     """Build CTM model with specified configuration."""
     model = ContinuousThoughtMachine(
         out_dims=out_dims,
@@ -76,7 +92,11 @@ def build_model(model_config, backbone_name, pretrained, device, out_dims):
         memory_length=model_config.memory_length,
         memory_hidden_dims=model_config.memory_hidden_dims,
         dropout=model_config.dropout,
-        deep_nlms=model_config.deep_nlms
+        deep_nlms=model_config.deep_nlms,
+        iterations=args.iterations,
+        do_layernorm_nlm=args.do_layernorm_nlm,
+        backbone_type=backbone_name,
+        positional_embedding_type=args.positional_embedding_type
     ).to(device)
     
     # Configure backbone
@@ -121,16 +141,21 @@ def main():
         args.backbone,
         args.pretrained,
         device_manager.device,
-        out_dims
+        out_dims,
+        args
     )
     
     print("\nStarting training...")
     model = train_ctm(
-        model,
-        trainloader,
-        testloader,
-        device_manager,
-        training_config
+        model=model,
+        trainloader=trainloader,
+        testloader=testloader,
+        iterations=args.iterations,
+        device=device_manager.device,
+        test_every=args.test_every,
+        lr=args.learning_rate,
+        checkpoint_dir=args.checkpoint_dir,
+        resume=args.resume
     )
     
     # Generate visualization if requested

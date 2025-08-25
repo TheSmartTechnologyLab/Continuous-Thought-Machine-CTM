@@ -4,6 +4,8 @@ import torch.nn.functional as F # Used for GLU
 import math
 import numpy as np
 
+from CTM.utils import add_coord_dim
+
 
 # --- Positional Encoding Modules ---
 

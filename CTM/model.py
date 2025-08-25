@@ -7,15 +7,15 @@ import math
 # from models.resnet import prepare_resnet_backbone
 # from models.utils import compute_normalized_entropy
 
-from .squeeze import Squeeze, Identity
-from .pretrain import prepare_resnet_backbone
-from .synapas import SynapseUNET
-from .linear import SuperLinear
-from .backbone import ParityBackbone, PretrainedResNetWrapper, ShallowWide
-from .embedding import LearnableFourierPositionalEncoding, MultiLearnableFourierPositionalEncoding, CustomRotationalEmbedding, CustomRotationalEmbedding1D
-from .utils import compute_normalized_entropy
+from CTM.squeeze import Squeeze, Identity
+from CTM.pretrain import prepare_resnet_backbone
+from CTM.synapas import SynapseUNET
+from CTM.linear import SuperLinear
+from CTM.backbone import ParityBackbone, PretrainedResNetWrapper, ShallowWide
+from CTM.embedding import LearnableFourierPositionalEncoding, MultiLearnableFourierPositionalEncoding, CustomRotationalEmbedding, CustomRotationalEmbedding1D
+from CTM.utils import compute_normalized_entropy
 
-from .constants import (
+from CTM.constants import (
     VALID_NEURON_SELECT_TYPES,
     VALID_BACKBONE_TYPES,
     VALID_POSITIONAL_EMBEDDING_TYPES

@@ -3,7 +3,7 @@ import torch.nn as nn
 import torch.nn.functional as F # Used for GLU
 import math
 import numpy as np
-from .squeeze import Identity
+from CTM.squeeze import Identity
 
 
 class SuperLinear(nn.Module):

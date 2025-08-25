@@ -6,6 +6,9 @@ __pycache__/
 # C extensions
 *.so
 
+data/
+checkpoints/
+
 # Distribution / packaging
 .Python
 build/
@@ -192,3 +195,5 @@ cython_debug/
 #  refer to https://docs.cursor.com/context/ignore-files
 .cursorignore
 .cursorindexingignore
+data/cifar-10-python.tar.gz
+
